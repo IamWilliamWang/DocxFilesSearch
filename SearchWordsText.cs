@@ -108,9 +108,10 @@ namespace DocxFilesSearch
                     continue;
                 String fullFileName = fileInfo.FullName;
                 Word thisWordDocument = new Word(fullFileName);
-                if (thisWordDocument.ReadWord().Contains(searchingContent))
+                String thisWordDocumentText = thisWordDocument.ReadWord();
+                if (thisWordDocumentText.Contains(searchingContent))
                 {
-                    String[] docxLines = thisWordDocument.ReadWordLines();
+                    String[] docxLines = thisWordDocumentText.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     for (var rowIndex = 0; rowIndex < docxLines.Length; rowIndex++)
                     {
                         if (docxLines[rowIndex].Contains(searchingContent))
